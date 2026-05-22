@@ -1,0 +1,6 @@
+printsome:
+	echo "Hello make1	"
+clean:
+	echo "Hello make 2"
+	rm -rf makefile
+	echo "makefile remove successfully"

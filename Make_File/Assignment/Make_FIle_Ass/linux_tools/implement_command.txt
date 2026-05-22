@@ -1,0 +1,31 @@
+• Completed both assignments and verified the builds.
+
+  I made one Makefile fix in both projects so switching between debug and release correctly relinks the shared bin/ executables:
+
+  - student_db/Makefile
+  - linux_tools/Makefile
+
+  Verified:
+
+  cd student_db
+  make clean
+  make debug
+  make release
+  ./bin/add_student
+  ./bin/search_student
+  make run
+
+  cd linux_tools
+  make clean
+  make debug
+  make release
+  make install
+  make package
+  make uninstall
+  ./bin/myls
+  ./bin/mycat file.txt
+  ./bin/mycp a.txt b.txt
+
+  The linux_tools.tar.gz package was created successfully, and all executables ran in smoke tests.
+
+

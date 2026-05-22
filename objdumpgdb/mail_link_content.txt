@@ -1,0 +1,9 @@
+1 - https://medium.com/@luischaparroc/compilation-process-with-gcc-and-c-programs-344445180ac8
+
+2 - OBJDUMP
+
+https://www.thegeekstuff.com/2012/09/objdump-examples/
+
+gdb 
+Good one: https://www.cs.toronto.edu/~krueger/csc209h/tut/gdb_tutorial.html
+

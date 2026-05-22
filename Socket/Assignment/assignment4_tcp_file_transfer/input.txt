@@ -1,0 +1,3 @@
+This is a sample file for TCP file transfer.
+The client reads this file and sends it to the server.
+The server stores the received data in received.txt.

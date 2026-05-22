@@ -1,0 +1,179 @@
+Student Database Build Automation - Implementation Commands
+===========================================================
+
+Project structure:
+
+student_db/
+|-- Makefile
+|-- include/student.h
+|-- src/add_student.c
+|-- src/search_student.c
+|-- src/display_student.c
+|-- src/file_ops.c
+|-- src/common.c
+|-- apps/add_main.c
+|-- apps/search_main.c
+|-- apps/display_main.c
+|-- build/
+`-- bin/
+
+
+1. Build all executables in release mode
+----------------------------------------
+
+Command:
+    make
+
+or:
+    make release
+
+Expected result:
+    - Object files are created in build/release/
+    - Executables are created in bin/
+    - bin/add_student is created
+    - bin/search_student is created
+    - bin/display_student is created
+
+
+2. Build all executables in debug mode
+--------------------------------------
+
+Command:
+    make debug
+
+Expected result:
+    - Object files are created in build/debug/
+    - Executables are created in bin/
+    - DEBUG conditional compilation is enabled
+    - add_student prints the debug database file message
+
+
+3. Add a student record
+-----------------------
+
+Command:
+    ./bin/add_student
+
+Example input and output:
+    Roll number: 101
+    Name: Arun Kumar
+    Department: CSE
+    Marks: 89.5
+    Student added successfully.
+
+Possible validation outputs:
+    Invalid number. Please enter an integer value.
+    Roll number must be greater than zero.
+    Name cannot be empty.
+    Department cannot be empty.
+    Invalid number. Please enter a numeric value.
+    Marks must be between 0 and 100.
+    A student with this roll number already exists.
+
+
+4. Search for a student record
+------------------------------
+
+Command:
+    ./bin/search_student
+
+Example input and output when the student exists:
+    Enter roll number to search: 101
+
+    Roll No     : 101
+    Name        : Arun Kumar
+    Department  : CSE
+    Marks       : 89.50
+
+Example output when the student does not exist:
+    Enter roll number to search: 999
+    Student not found.
+
+Possible validation outputs:
+    Invalid number. Please enter an integer value.
+    Roll number must be greater than zero.
+
+
+5. Display all student records
+------------------------------
+
+Command:
+    ./bin/display_student
+
+or use the bonus target:
+    make run
+
+Example output when records exist:
+    Roll No    Name                     Department               Marks
+    ---------------------------------------------------------------------
+    101        Arun Kumar               CSE                      89.50
+
+Example output when no records exist:
+    No student records found.
+
+
+6. Check build reuse and automatic dependency generation
+-------------------------------------------------------
+
+Command:
+    make
+    make
+
+Expected result:
+    - The second make command should avoid recompiling unchanged files.
+    - Dependency files with .d extension are generated in build/release/ or build/debug/.
+
+
+7. Clean generated build files only
+-----------------------------------
+
+Command:
+    make clean
+
+Expected result:
+    - build/ is removed
+    - bin/ is removed
+    - students.dat is kept
+
+
+8. Clean build files and student data
+-------------------------------------
+
+Command:
+    make distclean
+
+Expected result:
+    - build/ is removed
+    - bin/ is removed
+    - students.dat is removed
+
+
+9. Rebuild from a clean state
+-----------------------------
+
+Command:
+    make clean
+    make release
+
+Expected result:
+    - Fresh release object files are created in build/release/
+    - Fresh executables are created in bin/
+
+
+10. Full sample workflow
+------------------------
+
+Commands:
+    make clean
+    make debug
+    ./bin/add_student
+    ./bin/search_student
+    make run
+    make release
+
+What this demonstrates:
+    - One Makefile builds multiple executables
+    - Common objects are reused by all programs
+    - Debug and release modes use different compiler flags
+    - Object files and dependency files are stored under build/
+    - Executables are stored under bin/

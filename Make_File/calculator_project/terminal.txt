@@ -1,0 +1,61 @@
+(Ashwin S) silicondoc@arch ~$ cd "/home/silicondoc/Documents/Class file/Make_File"
+(Ashwin S) silicondoc@arch ~/Documents/Class file/Make_File$ ls
+'Class Documents'   first_make   Sample_make
+(Ashwin S) silicondoc@arch ~/Documents/Class file/Make_File$ mkdir classDocP1
+(Ashwin S) silicondoc@arch ~/Documents/Class file/Make_File$ cd classDocP1
+(Ashwin S) silicondoc@arch ~/Documents/Class file/Make_File/classDocP1$ ls
+(Ashwin S) silicondoc@arch ~/Documents/Class file/Make_File/classDocP1$ touch main.c add.c sub.c calc.h &
+[1] 19373
+(Ashwin S) silicondoc@arch ~/Documents/Class file/Make_File/classDocP1$ touch Makefile
+[1]+  Done                       touch main.c add.c sub.c calc.h
+(Ashwin S) silicondoc@arch ~/Documents/Class file/Make_File/classDocP1$ ls
+add.c  calc.h  main.c  Makefile  sub.c
+(Ashwin S) silicondoc@arch ~/Documents/Class file/Make_File/classDocP1$ gedit main.c add.c  sub.c calc.h Makefile
+(Ashwin S) silicondoc@arch ~/Documents/Class file/Make_File/classDocP1$ gedit main.c add.c  sub.c calc.h Makefile &
+[1] 20567
+(Ashwin S) silicondoc@arch ~/Documents/Class file/Make_File/classDocP1$ cd ..
+(Ashwin S) silicondoc@arch ~/Documents/Class file/Make_File$ ls
+ calculator_project  'Class Documents'   first_make   Sample_make
+(Ashwin S) silicondoc@arch ~/Documents/Class file/Make_File$ cd "calculator_project"
+(Ashwin S) silicondoc@arch ~/Documents/Class file/Make_File/calculator_project$ ls
+add.c  calc.h  main.c  Makefile  sub.c
+(Ashwin S) silicondoc@arch ~/Documents/Class file/Make_File/calculator_project$ make
+gcc -Wall -c main.c
+gcc -Wall -c add.c
+gcc -Wall -c sub.c
+gcc main.o add.o sub.o -o calculator
+(Ashwin S) silicondoc@arch ~/Documents/Class file/Make_File/calculator_project$ ./calculator
+A = 25
+
+B = : 15
+Addition: 40
+Subtraction: 10
+(Ashwin S) silicondoc@arch ~/Documents/Class file/Make_File/calculator_project$ gedit main.c add.c  sub.c calc.h Makefile &
+[2] 24274
+[1]   Done                       gedit main.c add.c sub.c calc.h Makefile  (wd: ~/Documents/Class file/Make_File/classDocP1)
+(wd now: ~/Documents/Class file/Make_File/calculator_project)
+(Ashwin S) silicondoc@arch ~/Documents/Class file/Make_File/calculator_project$ make
+make: Nothing to be done for 'all'.
+(Ashwin S) silicondoc@arch ~/Documents/Class file/Make_File/calculator_project$ ls
+add.c  add.o  calc.h  calculator  main.c  main.o  Makefile  sub.c  sub.o
+(Ashwin S) silicondoc@arch ~/Documents/Class file/Make_File/calculator_project$ make
+gcc -Wall -c main.c
+gcc -Wall -c add.c
+gcc -Wall -c sub.c
+gcc main.o add.o sub.o -o calculator
+(Ashwin S) silicondoc@arch ~/Documents/Class file/Make_File/calculator_project$ ./calculator
+A = 22
+
+B = : 33
+Addition: 55
+Subtraction: -11
+(Ashwin S) silicondoc@arch ~/Documents/Class file/Make_File/calculator_project$ gcc --version
+gcc (GCC) 15.2.1 20260209
+Copyright (C) 2025 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+(Ashwin S) silicondoc@arch ~/Documents/Class file/Make_File/calculator_project$ gcc
+gcc: fatal error: no input files
+compilation terminated.
+(Ashwin S) silicondoc@arch ~/Documents/Class file/Make_File/calculator_project$
