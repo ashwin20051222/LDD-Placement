@@ -13,6 +13,3 @@ This repository contains my Linux Device Driver placement practice work, C progr
 - `miniprojectusingcos/` - mini project problem statements and code
 - `objdumpgdb/` - GDB and objdump notes
 
-## Note
-
-Folders contain their own source files, documents, and assignment notes where needed.
