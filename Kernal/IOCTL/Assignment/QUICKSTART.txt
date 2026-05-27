@@ -1,0 +1,207 @@
+
+                  GPIO IRQ Driver with ioctl + poll()                       
+                      QUICK START GUIDE                                      
+
+
+ PROJECT LOCATION:
+   /home/silicondoc/Documents/Class\ file/LDD/Kernal/IOCTL/Assignment
+
+
+
+ FASTEST WAY TO START (Automated):
+
+   cd "/home/silicondoc/Documents/Class file/LDD/Kernal/IOCTL/Assignment"
+   ./quickstart.sh         # Interactive menu
+   # Choose: 1 (Full Setup)
+
+
+
+ STEP-BY-STEP MANUAL SETUP:
+
+   Step 1: Navigate to directory
+   
+   cd "/home/silicondoc/Documents/Class file/LDD/Kernal/IOCTL/Assignment"
+
+   Step 2: Build the kernel module
+   
+   make clean
+   make
+   
+    Should create: gpio_irq_driver.ko
+
+   Step 3: Load the module
+   
+   sudo insmod gpio_irq_driver.ko
+
+    Verify: lsmod | grep gpio
+
+   Step 4: Check kernel logs
+   
+   dmesg | tail -5
+   
+    Look for: "GPIO IRQ ioctl driver loaded"
+    Note the Major Number (e.g., 242)
+
+   Step 5: Create device node
+   
+   MAJOR=$(grep gpioirqdev /proc/devices | awk '{print $1}')
+   sudo mknod /dev/gpioirqdev c $MAJOR 0
+   sudo chmod 666 /dev/gpioirqdev
+
+    Verify: ls -la /dev/gpioirqdev
+
+   Step 6: Compile user application
+   
+   gcc -o gpio_user_app gpio_user_app.c
+
+   Step 7: Run the application
+   
+   ./gpio_user_app
+
+    Should display: "Waiting for GPIO interrupts..."
+    Waits for events (Press Ctrl+C to exit)
+
+   Step 8: In another terminal, trigger events
+   
+   gcc -o gpio_test_trigger gpio_test_trigger.c
+   ./gpio_test_trigger 5 1
+
+    Triggers 5 events, 1 second apart
+    First terminal shows: "[IRQ #1] GPIO INTERRUPT DETECTED!"
+
+
+
+ IMPORTANT MAKE TARGETS:
+
+   make              - Build module
+   make clean        - Remove build files
+   make setup-auto   - Auto-create device node
+   make dmesg-follow - Follow kernel logs in real-time
+   make help         - Show all targets
+
+
+
+ DOCUMENTATION FILES:
+
+   README.md          - Complete guide with troubleshooting
+   CONCEPTS.md        - Technical deep-dive explanations
+   INTERVIEW_QA.md    - Interview Q&A guide (25 questions)
+   QUICKSTART.sh      - Automated setup script
+
+
+
+ SOURCE FILES:
+
+   gpio_irq_driver.c   - Kernel module (4.5 KB)
+   gpio_user_app.c     - Monitor application (4.6 KB)
+   gpio_test_trigger.c - Test utility (2.7 KB)
+   Makefile            - Build system (1.5 KB)
+
+
+
+ CLEANUP:
+
+   sudo rmmod gpio_irq_driver
+   sudo rm -f /dev/gpioirqdev
+   make clean
+
+
+
+  PREREQUISITES:
+
+    gcc and make installed
+    Kernel headers: sudo apt install linux-headers-$(uname -r)
+    Build tools: sudo apt install build-essential
+    Root/sudo access for module operations
+
+
+
+ LEARNING CONCEPTS:
+
+    ioctl System Call      - Custom device commands
+    poll() Function        - Event waiting mechanism  
+    IRQ Handling           - Interrupt processing
+    Synchronization        - Mutex protection
+    Data Transfer          - copy_from/to_user()
+    Wait Queues            - Event notification
+    Character Drivers      - Linux kernel module
+
+
+
+ COMPLETE WORKFLOW COMMAND:
+
+   # Terminal 1: Build and load
+   cd "/home/silicondoc/Documents/Class file/LDD/Kernal/IOCTL/Assignment"
+   make clean && make
+   sudo insmod gpio_irq_driver.ko
+   make setup-auto
+   make dmesg-follow &
+   
+   # Terminal 2: Run monitor app
+   cd "/home/silicondoc/Documents/Class file/LDD/Kernal/IOCTL/Assignment"
+   gcc -o gpio_user_app gpio_user_app.c
+   ./gpio_user_app
+   
+   # Terminal 3: Trigger events
+   cd "/home/silicondoc/Documents/Class file/LDD/Kernal/IOCTL/Assignment"
+   gcc -o gpio_test_trigger gpio_test_trigger.c
+   ./gpio_test_trigger 10 1
+
+
+
+ EXPECTED OUTPUT:
+
+   ====================================
+    GPIO IRQ Driver - User Application
+   ====================================
+   
+   [+] Opening device: /dev/gpioirqdev
+   [+] Device opened successfully (fd=3)
+   [+] Setting GPIO pin: 17
+   [+] Setting edge type: 0 (0=rising, 1=falling, 2=both)
+   [+] Enabling GPIO IRQ
+   
+   ====================================
+    Waiting for GPIO interrupts...
+    (Press Ctrl+C to exit)
+   ====================================
+   
+   [IRQ #1] GPIO INTERRUPT DETECTED!
+            Event: 1 (timestamp: ...)
+   
+   [IRQ #2] GPIO INTERRUPT DETECTED!
+            Event: 1 (timestamp: ...)
+
+
+
+ TROUBLESHOOTING:
+
+   Problem: "Module not found"
+   Solution: Run "make" first to compile the module
+
+   Problem: "Device not found: /dev/gpioirqdev"
+   Solution: Run "make setup-auto" to create device node
+
+   Problem: "Cannot open device"
+   Solution: Check permissions with "ls -la /dev/gpioirqdev"
+
+   Problem: "No interrupts received"
+   Solution: Run gpio_test_trigger in another terminal
+
+   Problem: Build error
+   Solution: Install kernel headers: sudo apt install linux-headers-$(uname -r)
+
+
+
+ Next Steps:
+
+   1. Read README.md for detailed explanations
+   2. Study CONCEPTS.md for technical deep-dive
+   3. Review INTERVIEW_QA.md for 25 interview questions
+   4. Modify code to extend functionality
+   5. Use for learning/interview preparation
+
+
+
+Last Updated: May 27, 2026
+Status: Production Ready 

@@ -1,0 +1,92 @@
+HOW TO RUN HELLO KERNEL MODULE
+================================
+
+Step 1: Navigate to the assignment directory
+--------------------------------------------
+cd "/home/silicondoc/Documents/Class file/LDD/Kernal/Character Drivers/Assignment"
+
+
+Step 2: Compile the module
+--------------------------
+make
+
+Expected output:
+  CC [M]  hello_kernel.o
+  Building modules, stage 2.
+  MODPOST 1 modules
+  CC      hello_kernel.mod.o
+  LD [M]  hello_kernel.o
+
+You should now see hello_kernel.ko in the directory.
+
+
+Step 3: Load the module
+-----------------------
+sudo insmod hello_kernel.ko
+
+
+Step 4: Verify the module is loaded
+-----------------------------------
+
+Check with lsmod:
+  lsmod | grep hello_kernel
+
+Check kernel messages:
+  dmesg | tail
+
+You should see:
+  Hello: Kernel Module Loaded
+
+
+Step 5: Remove the module
+-------------------------
+sudo rmmod hello_kernel
+
+
+Step 6: Verify removal
+----------------------
+
+Check with lsmod (should show nothing):
+  lsmod | grep hello_kernel
+
+Check kernel messages:
+  dmesg | tail
+
+You should see:
+  Hello: Kernel Module Removed
+
+
+Step 7: Clean up (optional)
+---------------------------
+make clean
+
+
+Common Issues and Solutions
+===========================
+
+Issue: "make: *** /lib/modules/.../build: No such file or directory"
+Solution: Install kernel headers
+  sudo apt install build-essential linux-headers-$(uname -r)
+
+Issue: "module verification failed: signature and/or required key missing"
+Solution: This is normal on systems with Secure Boot disabled. Load anyway:
+  sudo insmod -f hello_kernel.ko
+
+Issue: "Operation not permitted" when running insmod
+Solution: You need root privileges. Use sudo.
+
+
+Module Information Commands
+===========================
+
+# List all loaded modules
+lsmod
+
+# Check kernel messages
+dmesg
+
+# Find module info
+modinfo hello_kernel.ko
+
+# See module location
+find /lib/modules/$(uname -r)/extra -name "*.ko"
