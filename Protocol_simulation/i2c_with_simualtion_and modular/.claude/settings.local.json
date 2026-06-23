@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(gcc -std=c11 -Wall -Wextra -Wpedantic -Wshadow -Wpointer-arith -Wcast-align -Wstrict-prototypes -Wmissing-prototypes -Wno-unused-parameter -O2 -I. -Icore -Ibus -Imaster -Islave -Iarbitration -Iprotocol -Iui -c bus/i2c_bus.c -o /tmp/i2c_bus.o)",
+      "Bash(echo \"---exit=$?---\")"
+    ]
+  }
+}
